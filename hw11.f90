@@ -18,8 +18,8 @@
 	subroutine runge_kuta(a,b,n)
 	  integer n,i,o
 	  complex*16 a,b,k1,k2,k3,k4,h,y1,y2,t,fp,f
-	  o=6
-	  y1=dcmplx(0.5,0.d0)
+	  o=11
+	  y1=dcmplx(dble(0.5),0.d0)
 	  h=(b-a)/n
 	  write(o,"(50('*'))")
 	  write(o,"(10X,'Runge-Kutta')")
@@ -29,16 +29,16 @@
 	  do i=0,n
 	    t=a+i*h
 	    k1=fp(t,y1)
-		k2=fp(t+h/2,y1+k1*h/2)
-		k3=fp(t+h/2,y1+k2*h/2)
+		k2=fp(t+h/2.d0,y1+k1*h/2.d0)
+		k3=fp(t+h/2.d0,y1+k2*h/2.d0)
 		k4=fp(t+h,y1+k3*h)
-		y2=y1+h/6*(k1+2*k2+2*k3+k4)
+		y2=y1+h/6.d0*(k1+2.d0*k2+2.d0*k3+k4)
 
 !		k1=h*fp(t,y1)
-!		k2=h*fp(t+h/2,y1+k1/2)
-!		k3=h*fp(t+h/2,y1+k2/2)
+!		k2=h*fp(t+h/2.d0,y1+k1/2.d0)
+!		k3=h*fp(t+h/2.d0,y1+k2/2.d0)
 !		k4=h*fp(t+h,y1+k3)
-!		y2=y1+(k1+2*k2+2*k3+k4)/6
+!		y2=y1+(k1+2.d0*k2+2.d0*k3+k4)/6.d0
 		write(o,100)real(t),real(f(t)),real(y1),cdabs(f(t)-y1)
 		y1=y2
 	  end do  
@@ -46,7 +46,7 @@
 	  !complex
 	  200 FORMAT('(', E11.5,2X,E11.5')')  
 	  !real
-	  100 FORMAT(F3.1,3X,E13.7,2X,E13.7,2X,E13.7)
+	  100 FORMAT(F3.1,3X,E14.8,2X,E14.8,2X,E14.8)
 	end subroutine runge_kuta
 
 	function fp(t,y)
@@ -56,5 +56,5 @@
 
 	function f(t)
 	  complex*16 t,f
-	  f=-0.5*cdexp(t)+t*t+2.d0*t+1.d0
+	  f=dble(-0.5)*cdexp(t)+t*t+2.d0*t+1.d0
 	end function f

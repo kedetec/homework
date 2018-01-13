@@ -23,7 +23,7 @@
 	  o=11
 	  y1(1)=dcmplx(0.d0,0.d0)
 	  y1(2)=dcmplx(0.d0,0.d0)
-	  h=(b-a)/n
+	  h=(b-a)/dble(n)
 	  write(o,"(50('*'))")
 	  write(o,"(2X,'f(1)=-3.375*cdexp(-2*t)+1.875*cdexp(-0.4*t)+1.5')")
   	  write(o,"(2X,'f(2)=-2.25*cdexp(-2*t)+2.25*cdexp(-0.4*t)')")
@@ -31,21 +31,21 @@
 	  write(o,"('ti',5X,'Exact F(1)',5X,'OrderFour',5X,'Exact F(2)',5X,'OrderFour')")	  
 	  write(o,"(50('-'))")
 	  do i=0,n
-	    t=a+i*h
+	    t=a+dble(i)*h
 		do j=1,nf
 	      k(1,j)=h*fp(j,t,y1(1),y1(2))
 		end do
 		do j=1,nf
-		  k(2,j)=h*fp(j,t+h/2,y1(1)+k(1,1)/2,y1(2)+k(1,2)/2)
+		  k(2,j)=h*fp(j,t+h/2.d0,y1(1)+k(1,1)/2.d0,y1(2)+k(1,2)/2.d0)
 		end do
 		do j=1,nf
-		  k(3,j)=h*fp(j,t+h/2,y1(1)+k(2,1)/2,y1(2)+k(2,2)/2)
+		  k(3,j)=h*fp(j,t+h/2.d0,y1(1)+k(2,1)/2.d0,y1(2)+k(2,2)/2.d0)
 		end do
 		do j=1,nf
 		  k(4,j)=h*fp(j,t+h,y1(1)+k(3,1),y1(2)+k(3,2))
 		end do
 		do j=1,nf
-		  y2(j)=y1(j)+(k(1,j)+2.d0*k(2,j)+2.d0*k(3,j)+k(4,j))/6
+		  y2(j)=y1(j)+(k(1,j)+2.d0*k(2,j)+2.d0*k(3,j)+k(4,j))/6.d0
 		end do
 		write(o,100)real(t),real(f(1,t)),real(y1(1)),real(f(2,t)),real(y1(2))
 	
@@ -62,9 +62,9 @@
 	  integer nf
 	  complex*16 t,y1,y2,fp
 	  if(nf .eq. 1)then
-	    fp=-4*y1+3*y2+6.d0
+	    fp=-4.d0*y1+3.d0*y2+6.d0
 	  else if(nf .eq. 2)then
-	    fp=-2.4*y1+1.6*y2+3.6
+	    fp=-dble(2.4)*y1+dble(1.6)*y2+dble(3.6)
 	  else
 	  end if	  
 	end function fp
@@ -75,9 +75,9 @@
 	  integer nf
 	  complex*16 t,f
 	  if(nf .eq. 1)then
-	    f=-3.375*cdexp(-2*t)+1.875*cdexp(-0.4*t)+1.5
+	    f=dble(-3.375)*cdexp(-2.d0*t)+dble(1.875)*cdexp(dble(-0.4)*t)+dble(1.5)
 	  else if(nf .eq. 2)then
-	    f=-2.25*cdexp(-2*t)+2.25*cdexp(-0.4*t)
+	    f=dble(-2.25)*cdexp(-2.d0*t)+dble(2.25)*cdexp(dble(-0.4)*t)
 	  else
 	  end if
 	end function f
