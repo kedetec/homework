@@ -10,12 +10,12 @@
 	open(unit=7,file='hw7_input.txt',status='old',action='read')
 	open(unit=11,file='hw7_output.txt',action='write',position='append')
 	read(7,*)n
-	call hw5_gauss_seidel(n)
+	call hw7_gauss_seidel(n)
 	end program hw7
 !***************************************************************************
 ! subroutine hw5_gauss_seidel
 !***************************************************************************
-	subroutine hw5_gauss_seidel(n)
+	subroutine hw7_gauss_seidel(n)
 	integer n,i,j,k,nmax
 	complex*16 a(n,n),b(n),xo(n),xn(n),c0,sumo,sumn
 	real*8 tol,pmax,xt,t0,w
@@ -53,7 +53,7 @@
 	    do j=i+1,n
 	      sumo=sumo+a(i,j)*xo(j)
 	    end do
-	    xn(i)=(1-w)*xo(i)+w*((b(i)-sumn-sumo)/a(i,i))	  
+	    xn(i)=(1.d0-w)*xo(i)+w*((b(i)-sumn-sumo)/a(i,i))	  
 	  end do
   	  !control
 	  sumn=c0 !maxmun
@@ -85,4 +85,4 @@
 	  end if
 	end do
 	write(6,*)(xo(i),i=1,n)
-	end subroutine hw5_gauss_seidel
+	end subroutine hw7_gauss_seidel

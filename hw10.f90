@@ -16,7 +16,7 @@
 	  if(nf .eq. 1)then
 	    write(o,*)"(f=cdcos(x)*cdexp(x))"
 	  else if(nf .eq. 2)then
-	    write(o,*)'f=(100.d0/(x*x))*cdsin(10/x)'
+	    write(o,*)'f=(100.d0/(x*x))*cdsin(10.d0/x)'
 	  else if(nf .eq. 3)then
 	    write(o,*)'f=cdexp(-x*x)'
 	  else if(nf .eq. 4)then
@@ -40,18 +40,18 @@
 	subroutine compsimpson(nf,n,a,b,s)
 	  integer nf,n,i,oe
 	  complex*16 a,b,h,x(0:n),s,f
-      h=(b-a)/n
+      h=(b-a)/dble(n)
 	  do i=0,n
-	    x(i)=a+i*h
+	    x(i)=a+dble(i)*h
 	  end do
-	  s=(h/3)*(f(nf,x(0))+f(nf,x(n)))
+	  s=(h/3.d0)*(f(nf,x(0))+f(nf,x(n)))
 	  oe=1
 	  do i=1,n-1
 	    if(oe .eq. 1)then
-		  s=s+(h/3)*4*f(nf,x(i))
+		  s=s+(h/3.d0)*4.d0*f(nf,x(i))
 		  oe=0
 		else
-		  s=s+(h/3)*2*f(nf,x(i))
+		  s=s+(h/3.d0)*2.d0*f(nf,x(i))
 		  oe=1
 		end if
 	  end do
@@ -78,11 +78,11 @@
 	  do i=1,n
 	    t(i)=fx(a,b,x(i))
 	  end do
-	  s=dcmplx(0,0)
+	  s=dcmplx(0.d0,0.d0)
 	  do i=1,n
 	    s=s+c(i)*f(nf,t(i))
 	  end do
-	  s=s*((b-a)/2)
+	  s=s*((b-a)/2.d0)
 	end subroutine gauss
 !******************************************************************************
 ! function f
@@ -93,7 +93,7 @@
 	  if(nf .eq. 1)then
 	    f=cdcos(x)*cdexp(x)
 	  else if(nf .eq. 2)then
-	    f=(100.d0/(x*x))*cdsin(10/x)
+	    f=(100.d0/(x*x))*cdsin(10.d0/x)
 	  else if(nf .eq. 3)then
 	    f=cdexp(-x*x)
 	  else if(nf .eq. 4)then
@@ -107,6 +107,6 @@
 !******************************************************************************
 	function fx(a,b,t)	  
 	  complex*16 a,b,t,fx
-	  fx=((b-a)*t+(b+a))/2
+	  fx=((b-a)*t+(b+a))/2.d0
 	end function fx
 

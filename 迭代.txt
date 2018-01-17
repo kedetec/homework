@@ -1,0 +1,53 @@
+
+	subroutine get_det1(n,n1,c,d)
+	integer n,n1,i,j,i1,j1,k
+	real*8 c(n,n),c1(n1,n1),d,d1
+	if(n .eq. 2)then
+	  d=c(1,1)*c(2,2)-c(1,2)*c(2,1)
+	  return
+	else
+      do i=1,n
+	    j=mod(i,2)
+		if(j .eq. 1)then
+		  k=1
+		else
+		  k=0
+		end if
+		do i1=1,n-1
+		  do j1=1,n-1
+		    c1(i1,j1)=c(n1,j1+1)
+		  end do
+		end do
+		call get_det2(n1,n1-1,c1,d1)
+	    d=d+c(i,0)*k*d1
+	  end do
+	end if
+	return
+	end subroutine get_det1
+
+	subroutine get_det2(n,n1,c,d)
+	integer n,n1,i,j,i1,j1,k
+	real*8 c(n,n),c1(n1,n1),d,d1
+	if(n .eq. 2)then
+	  d=c(1,1)*c(2,2)-c(1,2)*c(2,1)
+	  return
+	else
+      do i=1,n
+	    j=mod(i,2)
+		if(j .eq. 1)then
+		  k=1
+		else
+		  k=0
+		end if
+		do i1=1,n-1
+		  do j1=1,n-1
+		    c1(i1,j1)=c(n1,j1+1)
+		  end do
+		end do
+		call get_det1(n1,n1-1,c1,d1)
+	    d=d+c(i,0)*k*d1
+	  end do
+	end if
+	
+	return
+	end subroutine get_det2

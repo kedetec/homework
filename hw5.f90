@@ -11,7 +11,9 @@
 	read(7,*)n
 	call hw5_findx(n)
 	end program hw5
-
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! subroutine hw5_findx
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	subroutine hw5_findx(n)
 	integer n,i,j
 	complex*16 a(n,n),b(n),c(n)
@@ -94,30 +96,30 @@
 ! exchange a and b
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	subroutine exchange_ab(a,b)
-	complex*16 a,b,t
-    t=a
-	a=b
-	b=t
+	  complex*16 a,b,t
+      t=a
+	  a=b
+	  b=t
 	end subroutine
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! exchange matrix's col i and col j
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	subroutine exchange_col(i,j,n,a)
-	integer i,j,n,k
-	complex*16 a(n,n),t
-    do k=1,n
-	  call exchange_ab(a(i,k),a(j,k))
-	end do
+	  integer i,j,n,k
+	  complex*16 a(n,n),t
+      do k=1,n
+	    call exchange_ab(a(i,k),a(j,k))
+	  end do
 	end subroutine
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! output m*n matrix
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	subroutine output_matrix(m,n,c)
-	integer m,n,i,j
-	complex*16 c(m,n)
-    do i=1,m
-	  write(11,"(1x,E20.6,$)")(c(i,j),j=1,n)
-	  write(11,*)
+	  integer m,n,i,j
+	  complex*16 c(m,n)
+      do i=1,m
+	    write(11,"(1x,E20.6,$)")(c(i,j),j=1,n)
+	    write(11,*)
 	end do	
 	return
 	end subroutine output_matrix
@@ -127,22 +129,22 @@
 !         --1 successful
 !******************************************************************************
 	subroutine check_axb(n,a,x,b)
-	integer n,m,i,j
-	complex*16 a(n,n),x(n),b(n),sum,c0,t
-	c0=dcmplx(0.d0,0.d0)
+	  integer n,m,i,j
+	  complex*16 a(n,n),x(n),b(n),sum,c0,t
+	  c0=dcmplx(0.d0,0.d0)
 	
-	do i=1,n
-	  sum=c0
-	  do j=1,n
-	    sum=sum+a(i,j)*x(j)
-	  end do	  
-	  if(sum .ne. b(i))then
-		if(cdabs((sum-b(i))/sum) .gt. 0.0000001)then
-	      write(6,*)'A * X = B is wrong!'
-		  return
-		end if
-	  end if
-	end do
-	write(6,*)'A * X = B is correct!'
-	return
+	  do i=1,n
+	    sum=c0
+	    do j=1,n
+	      sum=sum+a(i,j)*x(j)
+	    end do	  
+	    if(sum .ne. b(i))then
+		  if(cdabs((sum-b(i))/sum) .gt. 0.0000001)then
+	        write(6,*)'A * X = B is wrong!'
+		    return
+		  end if
+	    end if
+	  end do
+	  write(6,*)'A * X = B is correct!'
+	  return
 	end subroutine check_axb
