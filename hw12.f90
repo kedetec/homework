@@ -32,27 +32,27 @@
 	  write(o,"(50('-'))")
 	  do i=0,n
 	    t=a+dble(i)*h
-		do j=1,nf
+	    do j=1,nf
 	      k(1,j)=h*fp(j,t,y1(1),y1(2))
-		end do
-		do j=1,nf
-		  k(2,j)=h*fp(j,t+h/2.d0,y1(1)+k(1,1)/2.d0,y1(2)+k(1,2)/2.d0)
-		end do
-		do j=1,nf
-		  k(3,j)=h*fp(j,t+h/2.d0,y1(1)+k(2,1)/2.d0,y1(2)+k(2,2)/2.d0)
-		end do
-		do j=1,nf
-		  k(4,j)=h*fp(j,t+h,y1(1)+k(3,1),y1(2)+k(3,2))
-		end do
-		do j=1,nf
-		  y2(j)=y1(j)+(k(1,j)+2.d0*k(2,j)+2.d0*k(3,j)+k(4,j))/6.d0
-		end do
-		write(o,100)real(t),real(f(1,t)),real(y1(1)),real(f(2,t)),real(y1(2))
+	    end do
+	    do j=1,nf
+	      k(2,j)=h*fp(j,t+h/2.d0,y1(1)+k(1,1)/2.d0,y1(2)+k(1,2)/2.d0)
+	    end do
+	    do j=1,nf
+	      k(3,j)=h*fp(j,t+h/2.d0,y1(1)+k(2,1)/2.d0,y1(2)+k(2,2)/2.d0)
+	    end do
+	    do j=1,nf
+	      k(4,j)=h*fp(j,t+h,y1(1)+k(3,1),y1(2)+k(3,2))
+	    end do
+	    do j=1,nf
+	      y2(j)=y1(j)+(k(1,j)+2.d0*k(2,j)+2.d0*k(3,j)+k(4,j))/6.d0
+	    end do
+	    write(o,100)real(t),real(f(1,t)),real(y1(1)),real(f(2,t)),real(y1(2))
 	
-		y1(1)=y2(1)
-		y1(2)=y2(2)
+	    y1(1)=y2(1)
+	    y1(2)=y2(2)
 
-		100 FORMAT(F3.1,3X,E13.7,2X,E13.7,2X,E13.7,2X,E13.7)
+	    100 FORMAT(F3.1,3X,E13.7,2X,E13.7,2X,E13.7,2X,E13.7)
 	  end do  
 	end subroutine runge_kuta
 !****************************************************************************

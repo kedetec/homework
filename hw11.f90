@@ -29,18 +29,18 @@
 	  do i=0,n
 	    t=a+i*h
 	    k1=fp(t,y1)
-		k2=fp(t+h/2.d0,y1+k1*h/2.d0)
-		k3=fp(t+h/2.d0,y1+k2*h/2.d0)
-		k4=fp(t+h,y1+k3*h)
-		y2=y1+h/6.d0*(k1+2.d0*k2+2.d0*k3+k4)
+	    k2=fp(t+h/2.d0,y1+k1*h/2.d0)
+	    k3=fp(t+h/2.d0,y1+k2*h/2.d0)
+	    k4=fp(t+h,y1+k3*h)
+	    y2=y1+h/6.d0*(k1+2.d0*k2+2.d0*k3+k4)
 
-!		k1=h*fp(t,y1)
-!		k2=h*fp(t+h/2.d0,y1+k1/2.d0)
-!		k3=h*fp(t+h/2.d0,y1+k2/2.d0)
-!		k4=h*fp(t+h,y1+k3)
-!		y2=y1+(k1+2.d0*k2+2.d0*k3+k4)/6.d0
-		write(o,100)real(t),real(f(t)),real(y1),cdabs(f(t)-y1)
-		y1=y2
+!	    k1=h*fp(t,y1)
+!	    k2=h*fp(t+h/2.d0,y1+k1/2.d0)
+!	    k3=h*fp(t+h/2.d0,y1+k2/2.d0)
+!	    k4=h*fp(t+h,y1+k3)
+!	    y2=y1+(k1+2.d0*k2+2.d0*k3+k4)/6.d0
+	    write(o,100)real(t),real(f(t)),real(y1),cdabs(f(t)-y1)
+	    y1=y2
 	  end do  
 	  write(o,"(50('-'))")
 	  !complex

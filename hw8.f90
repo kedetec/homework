@@ -41,23 +41,23 @@
 	    call gebs(3,a,b,xx)
 	    do j=1,3
 	      xn(j)=xo(j)+xx(j)
-		  tt=cdabs(xx(j)/xn(j))
-		  if(me .le. tt)then
-		    me=tt
-		  end if
-		  if(cdabs(xx(j)) .gt. pmax)then
-		    write(6,*)'Divergence!'
-		    write(11,*)'Divergence!'
-		    stop
-		  end if
+	      tt=cdabs(xx(j)/xn(j))
+	      if(me .le. tt)then
+	        me=tt
+	      end if
+	      if(cdabs(xx(j)) .gt. pmax)then
+	        write(6,*)'Divergence!'
+	        write(11,*)'Divergence!'
+	        stop
+	      end if
 	    end do	  
 	    do j=1,3
 	      xo(j)=xn(j)
 	    end do
-		write(o,"(I2,3X,'(',e14.6,1X,e14.6,')',3X,'(',e14.6,1X,e14.6,')',3X,'('e14.6,1X,e14.6,')')")i,(xo(j),j=1,n)
+	    write(o,"(I2,3X,'(',e14.6,1X,e14.6,')',3X,'(',e14.6,1X,e14.6,')',3X,'('e14.6,1X,e14.6,')')")i,(xo(j),j=1,n)
 	    if(me .le. tol)then
-		  write(o,*)'Find solutions'
-		  exit
+	      write(o,*)'Find solutions'
+	      exit
 	    end if
 	  end do
 	  if(i .gt. nmax)then
@@ -73,7 +73,7 @@
 	  do i=1,n
 	    do j=1,n
 	      a(i,j)=fp(i,j,xo)
-		end do
+	    end do
 	  end do
 	  return
 	end subroutine cm
@@ -97,19 +97,19 @@
   	  do i=1,n
 	    do j=i+1,n
 	      r=a(j,i)/a(i,i)
-		  do k=1,n
-		    a(j,k)=a(j,k)-r*a(i,k)
-		  end do
-		  b(j)=b(j)-r*b(i)
+	      do k=1,n
+		a(j,k)=a(j,k)-r*a(i,k)
+	      end do
+	      b(j)=b(j)-r*b(i)
 	    end do
 	  end do
 	  xx(n)=b(n)/a(n,n)
 	  do i=n-1,1,-1
 	    sum=0.d0
-		do j=i+1,n
-		  sum=sum+a(i,j)*xx(j)
-		end do
-		xx(i)=(b(i)-sum)/a(i,i)
+	    do j=i+1,n
+	      sum=sum+a(i,j)*xx(j)
+	    end do
+	    xx(i)=(b(i)-sum)/a(i,i)
 	  end do	
 	end subroutine gebs
 !*******************************************************************
@@ -136,35 +136,35 @@
 	  integer i,j,k
 	  complex*16 fp,xo(3)	  
 	  if(i .eq. 1)then
-		if(j .eq. 1)then
+	    if(j .eq. 1)then
 	      fp=cmplx(3.d0,0.d0)
-		else if(j .eq. 2)then
-		  fp=xo(3)*cdsin(xo(2)*xo(3))
-		else if(j .eq. 3)then
-		  fp=xo(2)*cdsin(xo(2)*xo(3))
-		else
-		  ! parameter error
-		end if
+	    else if(j .eq. 2)then
+	      fp=xo(3)*cdsin(xo(2)*xo(3))
+	    else if(j .eq. 3)then
+	      fp=xo(2)*cdsin(xo(2)*xo(3))
+	    else
+	      ! parameter error
+	    end if
 	  else if(i .eq. 2)then
 	    if(j .eq. 1)then
 	      fp=2.d0*xo(1)
-		else if(j .eq. 2)then
-		  fp=-81.d0*2.d0*(xo(2)+dble(0.1))
-		else if(j .eq. 3)then
-		  fp=cdcos(xo(3))
-		else
-		  ! parameter error
-		end if
+	    else if(j .eq. 2)then
+	      fp=-81.d0*2.d0*(xo(2)+dble(0.1))
+	    else if(j .eq. 3)then
+	      fp=cdcos(xo(3))
+	    else
+	      ! parameter error
+	    end if
 	  else if(i .eq. 3)then
 	    if(j .eq. 1)then
 	      fp=-xo(2)*cdexp(-xo(1)*xo(2))
-		else if(j .eq. 2)then
-		  fp=-xo(1)*cdexp(-xo(1)*xo(2))
-		else if(j .eq. 3)then
-		  fp=20.d0
-		else
-		  ! parameter error
-		end if
+	    else if(j .eq. 2)then
+	      fp=-xo(1)*cdexp(-xo(1)*xo(2))
+	    else if(j .eq. 3)then
+	      fp=20.d0
+	    else
+	      ! parameter error
+	    end if
 	  else
 	  end if
 	end function fp

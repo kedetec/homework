@@ -26,10 +26,10 @@
 	  write(o,"(2X,'a = ','(',2F8.6,'),',2X,'b = ','(',2F8.6,'),',2X,'n = ',I3)")a,b,n
 	  if(m .eq. 1)then
 	    write(o,*)'Somposite Simpson''s Rule'
-		call compsimpson(nf,n,a,b,s)
+	    call compsimpson(nf,n,a,b,s)
 	  else if(m .eq. 2)then
-		write(o,*)'Gauss Quadrature'
-		call gauss(nf,n,a,b,s)
+	    write(o,*)'Gauss Quadrature'
+	    call gauss(nf,n,a,b,s)
 	  endif
 	  write(o,"(2X,'(',2E20.12,')')")s
 	  write(o,"(70('*'))")
@@ -40,7 +40,7 @@
 	subroutine compsimpson(nf,n,a,b,s)
 	  integer nf,n,i,oe
 	  complex*16 a,b,h,x(0:n),s,f
-      h=(b-a)/dble(n)
+          h=(b-a)/dble(n)
 	  do i=0,n
 	    x(i)=a+dble(i)*h
 	  end do
@@ -48,12 +48,12 @@
 	  oe=1
 	  do i=1,n-1
 	    if(oe .eq. 1)then
-		  s=s+(h/3.d0)*4.d0*f(nf,x(i))
-		  oe=0
-		else
-		  s=s+(h/3.d0)*2.d0*f(nf,x(i))
-		  oe=1
-		end if
+	      s=s+(h/3.d0)*4.d0*f(nf,x(i))
+	      oe=0
+	    else
+	      s=s+(h/3.d0)*2.d0*f(nf,x(i))
+	      oe=1
+	    end if
 	  end do
 	end subroutine compsimpson
 !******************************************************************************

@@ -44,18 +44,18 @@
 	  do i=0, nmax
 	    b=t2+h2*d
 	    t = cdsqrt(b*b-4*f(x2)*d)
-		if(cdabs(b-t) .le. cdabs(b+t))then
-		  h=-2.d0*f(x2)/(b+t)
-		else
-		  h=-2.d0*f(x2)/(b-t)
-		end if
-		p=x2+h
+	    if(cdabs(b-t) .le. cdabs(b+t))then
+	      h=-2.d0*f(x2)/(b+t)
+	    else
+	      h=-2.d0*f(x2)/(b-t)
+	    end if
+	    p=x2+h
 c	write(o,*)p,f(p)
 	    write(o,"(2x,I2,F12.6,' +',F12.6,'i',3x,F12.6,' +',F12.6,'i')")
      c       i+2,dreal(p),dimag(p),dreal(f(p)),dimag(f(p))
 
 	    if(cdabs(h)<tol)then	    	
-		  return
+	      return
 	    end if
 		
 	    x0=x1
@@ -67,7 +67,7 @@ c	write(o,*)p,f(p)
 	    t2 = (f(x2)-f(x1))/h2
 	    d = (t2-t1)/(h1+h2)
 	  end do
-        write(6,*)'Over Nmax'
+          write(6,*)'Over Nmax'
 	  stop
 	end subroutine hw3_muller
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
